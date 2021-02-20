@@ -6,12 +6,14 @@
 //
 
 import UIKit
+import CoreData
 
 class EntryTableViewCell: UITableViewCell {
     
     
     // MARK: Properties
     static let reuseIdentifier = "EntryCell"
+  
     
     var entry: Entry? {
         didSet {

@@ -19,6 +19,7 @@
 		ED09F5E525DF0AAC007A1FA8 /* Entry+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED09F5E425DF0AAC007A1FA8 /* Entry+Convenience.swift */; };
 		ED09F5E925DF0AB7007A1FA8 /* Journal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED09F5E725DF0AB7007A1FA8 /* Journal.xcdatamodeld */; };
 		ED1253E825DF1BE000B5438A /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1253E725DF1BE000B5438A /* EntryTableViewController.swift */; };
+		ED1253F725E05F5200B5438A /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1253F625E05F5200B5438A /* EntryDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,8 @@
 		ED09F5E425DF0AAC007A1FA8 /* Entry+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Entry+Convenience.swift"; sourceTree = "<group>"; };
 		ED09F5E825DF0AB7007A1FA8 /* Journal.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Journal.xcdatamodel; sourceTree = "<group>"; };
 		ED1253E725DF1BE000B5438A /* EntryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
+		ED1253EF25E04EAD00B5438A /* Journal 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Journal 2.xcdatamodel"; sourceTree = "<group>"; };
+		ED1253F625E05F5200B5438A /* EntryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntryDetailViewController.swift; path = Journal/EntryDetailViewController.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,6 +97,7 @@
 		ED09F5ED25DF0ADF007A1FA8 /* View Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				ED1253F625E05F5200B5438A /* EntryDetailViewController.swift */,
 				ED09F5DB25DF0A71007A1FA8 /* EntriesViewController.swift */,
 				ED1253E725DF1BE000B5438A /* EntryTableViewController.swift */,
 				ED09F5D825DF0A45007A1FA8 /* CreateEntryViewController.swift */,
@@ -179,6 +183,7 @@
 				ED09F5DC25DF0A71007A1FA8 /* EntriesViewController.swift in Sources */,
 				ED09F5E525DF0AAC007A1FA8 /* Entry+Convenience.swift in Sources */,
 				ED1253E825DF1BE000B5438A /* EntryTableViewController.swift in Sources */,
+				ED1253F725E05F5200B5438A /* EntryDetailViewController.swift in Sources */,
 				ED09F5E925DF0AB7007A1FA8 /* Journal.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -386,9 +391,10 @@
 		ED09F5E725DF0AB7007A1FA8 /* Journal.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				ED1253EF25E04EAD00B5438A /* Journal 2.xcdatamodel */,
 				ED09F5E825DF0AB7007A1FA8 /* Journal.xcdatamodel */,
 			);
-			currentVersion = ED09F5E825DF0AB7007A1FA8 /* Journal.xcdatamodel */;
+			currentVersion = ED1253EF25E04EAD00B5438A /* Journal 2.xcdatamodel */;
 			path = Journal.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
