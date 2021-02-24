@@ -11,6 +11,7 @@ import CoreData
 class EntryTableViewController: UITableViewController {
     
     // MARK: Properties
+    var entryController = EntryController()
     var entries: [Entry] {
         let context = CoreDataStack.shared.mainContext
         
@@ -48,7 +49,12 @@ class EntryTableViewController: UITableViewController {
             guard let detailVC = segue.destination as? EntryDetailViewController else { return }
             if let indexPath = tableView.indexPathForSelectedRow {
             detailVC.entry = fetchedResultsController.object(at: indexPath)
+                detailVC.entryController = entryController
             }
+        } else if segue.identifier == "CreateEntryModalSegue" {
+            guard let navC = segue.destination as? UINavigationController,
+                  let createEntryVC = navC.viewControllers.first as? CreateEntryViewController else { return }
+            createEntryVC.entryController = entryController
         }
     }
     
@@ -87,13 +93,18 @@ class EntryTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let entryToDelete = fetchedResultsController.object(at: indexPath)
-            let context = CoreDataStack.shared.mainContext
-            context.delete(entryToDelete)
-            do {
-                try context.save()
-                tableView.reloadData()
-            } catch {
-                print("Error deleting item, \(error)")
+            
+            entryController.deleteTaskFromServer(with: entryToDelete) { result in
+                // did the deletion from the server succeed?
+                guard let _ = try? result.get() else { return }
+                
+                let context = CoreDataStack.shared.mainContext
+                context.delete(entryToDelete)
+                do {
+                    try context.save()
+                } catch {
+                    print("Error deleting item, \(error)")
+                }
             }
         }
     }

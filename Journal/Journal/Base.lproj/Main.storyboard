@@ -77,7 +77,7 @@
                     <navigationItem key="navigationItem" title="Journal Entries" id="Laq-eS-5CS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="EXs-3e-cJI">
                             <connections>
-                                <segue destination="tV5-cd-Btq" kind="presentation" modalPresentationStyle="fullScreen" id="Z1D-C8-1sO"/>
+                                <segue destination="tV5-cd-Btq" kind="presentation" identifier="CreateEntryModalSegue" modalPresentationStyle="fullScreen" id="Z1D-C8-1sO"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>

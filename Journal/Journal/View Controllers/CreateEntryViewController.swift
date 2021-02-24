@@ -9,6 +9,8 @@ import UIKit
 
 class CreateEntryViewController: UIViewController {
     
+    var entryController: EntryController?
+    
     // MARK: IB Outlets
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var bodyTextTextField: UITextView!
@@ -26,7 +28,9 @@ class CreateEntryViewController: UIViewController {
            let bodyText = bodyTextTextField.text,
            !bodyText.isEmpty {
             
-            Entry(title: title, bodyText: bodyText, timestamp: Date(), mood: Mood.allCases[moodSegmentedControl.selectedSegmentIndex])
+            let newEntry = Entry(title: title, bodyText: bodyText, timestamp: Date(), mood: Mood.allCases[moodSegmentedControl.selectedSegmentIndex])
+            entryController?.sendEntryToServer(entry: newEntry)
+            
             let moc = CoreDataStack.shared.mainContext
             do {
                 try moc.save()
@@ -55,7 +59,6 @@ class CreateEntryViewController: UIViewController {
 
     }
     
-
     
 
 }

@@ -20,6 +20,8 @@
 		ED09F5E925DF0AB7007A1FA8 /* Journal.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = ED09F5E725DF0AB7007A1FA8 /* Journal.xcdatamodeld */; };
 		ED1253E825DF1BE000B5438A /* EntryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1253E725DF1BE000B5438A /* EntryTableViewController.swift */; };
 		ED1253F725E05F5200B5438A /* EntryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1253F625E05F5200B5438A /* EntryDetailViewController.swift */; };
+		EDC100F425E5C83C00747E06 /* EntryRepresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC100F325E5C83C00747E06 /* EntryRepresentation.swift */; };
+		EDC100F725E69E7B00747E06 /* EntryController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC100F625E69E7B00747E06 /* EntryController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +41,8 @@
 		ED1253E725DF1BE000B5438A /* EntryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryTableViewController.swift; sourceTree = "<group>"; };
 		ED1253EF25E04EAD00B5438A /* Journal 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Journal 2.xcdatamodel"; sourceTree = "<group>"; };
 		ED1253F625E05F5200B5438A /* EntryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EntryDetailViewController.swift; path = Journal/EntryDetailViewController.swift; sourceTree = SOURCE_ROOT; };
+		EDC100F325E5C83C00747E06 /* EntryRepresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryRepresentation.swift; sourceTree = "<group>"; };
+		EDC100F625E69E7B00747E06 /* EntryController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntryController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,8 @@
 				ED09F5E125DF0A9A007A1FA8 /* CoreDataStack.swift */,
 				ED09F5E425DF0AAC007A1FA8 /* Entry+Convenience.swift */,
 				ED09F5E725DF0AB7007A1FA8 /* Journal.xcdatamodeld */,
+				EDC100F325E5C83C00747E06 /* EntryRepresentation.swift */,
+				EDC100F625E69E7B00747E06 /* EntryController.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -181,8 +187,10 @@
 				ED09F5E225DF0A9A007A1FA8 /* CoreDataStack.swift in Sources */,
 				ED09F5C525DF09AD007A1FA8 /* SceneDelegate.swift in Sources */,
 				ED09F5DC25DF0A71007A1FA8 /* EntriesViewController.swift in Sources */,
+				EDC100F725E69E7B00747E06 /* EntryController.swift in Sources */,
 				ED09F5E525DF0AAC007A1FA8 /* Entry+Convenience.swift in Sources */,
 				ED1253E825DF1BE000B5438A /* EntryTableViewController.swift in Sources */,
+				EDC100F425E5C83C00747E06 /* EntryRepresentation.swift in Sources */,
 				ED1253F725E05F5200B5438A /* EntryDetailViewController.swift in Sources */,
 				ED09F5E925DF0AB7007A1FA8 /* Journal.xcdatamodeld in Sources */,
 			);
