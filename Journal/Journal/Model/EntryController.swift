@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 enum NetworkError: Error {
     case badResponse
@@ -21,6 +22,10 @@ class EntryController {
     
     typealias CompletionHandler = (Result<Bool, NetworkError>) -> Void
     
+    
+    init() {
+        fetchEntriesFromServer()
+    }
     
     // SEND TASK
     func sendEntryToServer(entry: Entry, completion: @escaping CompletionHandler = {_ in }) {
@@ -96,5 +101,79 @@ class EntryController {
             
             completion(.success(true))
         }.resume()
+    }
+    
+    // UPDATE
+    func update(with entry: Entry, representation: EntryRepresentation) {
+        entry.id = UUID(uuidString: representation.id)
+        entry.title = representation.title
+        entry.bodyText = representation.bodyText
+        entry.timestamp = representation.timestamp
+        entry.mood = representation.mood
+    }
+    
+    
+    // UPDATE ENTRIES RETRIEVED FROM FIREBASE
+    func updateEntries(with representations: [EntryRepresentation]) {
+        let identifiersToFetch = representations.compactMap({ UUID(uuidString: $0.id)})
+        var representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
+        
+        var fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "id IN %@", identifiersToFetch)
+        
+        do {
+           let existingEntries = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
+            for entry in existingEntries {
+                guard let id = entry.id,
+                      let representation = representationsByID[id] else { continue }
+                self.update(with: entry, representation: representation)
+                representationsByID.removeValue(forKey: id)
+            }
+            let context = CoreDataStack.shared.mainContext
+            for representation in representationsByID.values {
+                Entry(representation: representation, context: context)
+            }
+            try context.save()
+        } catch {
+            NSLog("Error updating entries to representations, \(error)")
+            return
+        }
+        
+ 
+    }
+    
+    func fetchEntriesFromServer(completion: @escaping CompletionHandler = {_ in }) {
+        let requestURL = baseURL.appendingPathExtension("json")
+        
+        URLSession.shared.dataTask(with: requestURL, completionHandler: { (data, response, error) in
+            if let error = error {
+                NSLog("Error fetching entries from server, \(error)")
+                completion(.failure(.otherError))
+                return
+            }
+            
+            if let response = response as? HTTPURLResponse,
+               response.statusCode != 200 {
+                NSLog("Bad response from server: \(response.statusCode)")
+                completion(.failure(.badResponse))
+                return
+            }
+            
+            guard let data = data else {
+                NSLog("no data returned from fetch request")
+                completion(.failure(.noData))
+                return
+            }
+            // Decode
+            do {
+                var fetchedEntries: [EntryRepresentation] = []
+                fetchedEntries = Array(try JSONDecoder().decode([String: EntryRepresentation].self, from: data).values)
+                self.updateEntries(with: fetchedEntries)
+                completion(.success(true))
+            } catch {
+                
+            }
+            
+        }).resume()
     }
 }
