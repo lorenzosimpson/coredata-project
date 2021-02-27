@@ -1,9 +1,7 @@
-<<<<<<< HEAD
 # Journal (Core Data) Day 2
 
 ## Introduction
 
-<<<<<<< HEAD
 This version of Journal will allow you to implement each part of CRUD when working with Core Data.
 
 ## Instructions
@@ -259,4 +257,3 @@ Back in the `EntryController`, you will make a couple methods that will help whe
 4. Write an initializer for the `EntryController`. It shouldn't take in any values. Inside of the initializer, call the `fetchEntriesFromServer` method. As soon as the app runs and initializes this model controller, it should fetch the entries from Firebase and update the persistent store.
 
 The app should be working at this point. Test it by going to the Firebase Database in a browser and changing some values in the entries saved there. The easiest thing to change is the mood. This will allow you to easily see if the table view will update according to the new changes. It may take a few seconds after the app launches, but you should see the cell(s) move to different sections if you changed the mood of some entries in Firebase.
->>>>>>> f4b1ceb72f5652339545cfa2aa66ecd5cb3262ce
