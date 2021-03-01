@@ -35,7 +35,7 @@ class EntryDetailViewController: UIViewController {
             entryController?.sendEntryToServer(entry: entry)
             
             do {
-                try CoreDataStack.shared.mainContext.save()
+                try CoreDataStack.shared.save()
             } catch {
                 NSLog("Error saving changes to MOC, \(error)")
             }

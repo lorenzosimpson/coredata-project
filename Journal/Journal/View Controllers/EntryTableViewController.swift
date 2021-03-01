@@ -98,12 +98,15 @@ class EntryTableViewController: UITableViewController {
                 // did the deletion from the server succeed?
                 guard let _ = try? result.get() else { return }
                 
-                let context = CoreDataStack.shared.mainContext
-                context.delete(entryToDelete)
-                do {
-                    try context.save()
-                } catch {
-                    print("Error deleting item, \(error)")
+                DispatchQueue.main.async {
+                    let context = CoreDataStack.shared.mainContext
+                    
+                    context.delete(entryToDelete)
+                    do {
+                        try context.save()
+                    } catch {
+                        print("Error deleting item, \(error)")
+                    }
                 }
             }
         }

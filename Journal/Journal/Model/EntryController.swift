@@ -114,33 +114,38 @@ class EntryController {
     
     
     // UPDATE ENTRIES RETRIEVED FROM FIREBASE
-    func updateEntries(with representations: [EntryRepresentation]) {
+    func updateEntries(with representations: [EntryRepresentation]) throws {
         let identifiersToFetch = representations.compactMap({ UUID(uuidString: $0.id)})
         var representationsByID = Dictionary(uniqueKeysWithValues: zip(identifiersToFetch, representations))
         
         var fetchRequest: NSFetchRequest<Entry> = Entry.fetchRequest()
         fetchRequest.predicate = NSPredicate(format: "id IN %@", identifiersToFetch)
         
-        do {
-           let existingEntries = try CoreDataStack.shared.mainContext.fetch(fetchRequest)
-            for entry in existingEntries {
-                guard let id = entry.id,
-                      let representation = representationsByID[id] else { continue }
-                self.update(with: entry, representation: representation)
-                representationsByID.removeValue(forKey: id)
+        let context = CoreDataStack.shared.container.newBackgroundContext()
+        var error: Error?
+        context.performAndWait {
+            do {
+                let existingEntries = try context.fetch(fetchRequest)
+                for entry in existingEntries {
+                    guard let id = entry.id,
+                          let representation = representationsByID[id] else { continue }
+                    self.update(with: entry, representation: representation)
+                    representationsByID.removeValue(forKey: id)
+                }
+            } catch let fetchError {
+                error = fetchError
             }
-            let context = CoreDataStack.shared.mainContext
+            
             for representation in representationsByID.values {
                 Entry(representation: representation, context: context)
             }
-            try context.save()
-        } catch {
-            NSLog("Error updating entries to representations, \(error)")
-            return
+            
         }
-        
- 
-    }
+        if let error = error { throw error }
+            
+        try CoreDataStack.shared.save(to: context)
+            
+        }
     
     func fetchEntriesFromServer(completion: @escaping CompletionHandler = {_ in }) {
         let requestURL = baseURL.appendingPathExtension("json")
@@ -168,10 +173,12 @@ class EntryController {
             do {
                 var fetchedEntries: [EntryRepresentation] = []
                 fetchedEntries = Array(try JSONDecoder().decode([String: EntryRepresentation].self, from: data).values)
-                self.updateEntries(with: fetchedEntries)
+                try self.updateEntries(with: fetchedEntries)
                 completion(.success(true))
             } catch {
-                
+                NSLog("failed to decode entries from server")
+                completion(.failure(.failedDecode))
+                return
             }
             
         }).resume()
